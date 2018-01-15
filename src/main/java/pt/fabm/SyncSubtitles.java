@@ -10,8 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 public class SyncSubtitles {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-        File file = new File("/Volumes/NO NAME/The Blacklist S02E01 1080p/The.Blacklist.S02E06.1080p.srt");
-        File file1 = new File("/Volumes/NO NAME/The Blacklist S02E01 1080p/The.Blacklist.S02E06.1080p_.srt");
+        InputStream subtitle = SyncSubtitles.class.getResourceAsStream("/subtitle.srt");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss,SSS");
 
@@ -35,8 +34,8 @@ public class SyncSubtitles {
         System.out.println(ratio);
         System.out.println(timePassed * ratio);
 
-        try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream, StandardCharsets.ISO_8859_1))) {
+        try {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(subtitle, StandardCharsets.ISO_8859_1))) {
                 String line = null;
 
                 while ((line = br.readLine()) != null) {
@@ -80,6 +79,5 @@ public class SyncSubtitles {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
